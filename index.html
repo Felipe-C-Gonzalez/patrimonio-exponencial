@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrimônio Exponencial - Simulador</title>
+    <meta name="description"
+        content="Simulado de patrimônio exponencial para calcular o crescimento do seu investimento ao longo do tempo.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Patrimônio Exponencial</h1>
+        <nav>
+            <ul>
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+                <li>
+                    <a href="#results"> Gráficos</a>
+                </li>
+                <li>
+                    <a href="/">Informações</a>
+                </li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <main>
+        <form class="form">
+            <label for="initial-value">Valor incial:</label>
+            <input type="number" name="initial-value" id="initial-value">
+            <label for="contribution">Aporte:</label>
+            <input type="number" name="contribution" id="contribution">
+            <label for="rate">Taxa:</label>
+            <input type="number" name="rate" id="rate">
+            <label for="time">Tempo:</label>
+            <input type="number" name="time" id="time">
+
+            <button type="button" id="btn-calculate">Calcular</button>
+        </form>
+        <section id="results"></section>
+    </main>
+
+    <footer>
+        <ul>
+            <li>
+                <a href="#">Linkedin</a>
+            </li>
+            <li>
+                <a href="#">Github</a>
+            </li>
+        </ul>
+    </footer>
+</body>
+
+</html>
