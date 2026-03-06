@@ -13,44 +13,63 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
-    <header>
-        <h1>Patrimônio Exponencial</h1>
-        <nav>
-            <ul>
-                <li>
-                    <a href="index.html">Home</a>
-                </li>
-                <li>
-                    <a href="#results"> Gráficos</a>
-                </li>
-                <li>
-                    <a href="/">Informações</a>
-                </li>
-            </ul>
-        </nav>
-
+    <header class="header">
+        <div>
+            <h1 class="title">Patrimônio Exponencial</h1>
+            <nav class="navigation-links">
+                <ul>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="#results"> Gráficos</a>
+                    </li>
+                    <li>
+                        <a href="/">Informações</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="thema-switch">
+            <button aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro"><i
+                    class="fa-regular fa-sun"></i></button>
+            <button aria-label="Alternar tema claro e escuro" title="Alternar tema claro e escuro"><i
+                    class="fa-regular fa-moon"></i></button>
+        </div>
     </header>
 
     <main>
         <form class="form">
-            <label for="initial-value">Valor incial:</label>
-            <input type="number" name="initial-value" id="initial-value">
-            <label for="contribution">Aporte:</label>
-            <input type="number" name="contribution" id="contribution">
-            <label for="rate">Taxa:</label>
-            <input type="number" name="rate" id="rate">
-            <label for="time">Tempo:</label>
-            <input type="number" name="time" id="time">
+            <div class="form-group value-initital">
+                <label for="initial-value">Valor incial:</label>
+                <input type="number" name="initial-value" id="initial-value" step="0.01" inputmode="decimal" required>
+            </div>
+            <div class=" form-group contribution">
+                <label for="contribution">Aporte:</label>
+                <input type="number" name="contribution" id="contribution" step="0.01" inputmode="decimal" required>
+            </div>
+            <div class="form-group rate">
+                <label for="rate">Taxa:</label>
+                <input type="number" name="rate" id="rate" step="0.01" inputmode="decimal" required>
+            </div>
+            <div class="form-group time">
+                <label for="time">Tempo:</label>
+                <input type="number" name="time" id="time" inputmode="decimal" required>
+            </div>
 
-            <button type="button" id="btn-calculate">Calcular</button>
+            <button type="submit" id="btn-calculate" class="btn-calculate">Calcular</button>
         </form>
-        <section id="results"></section>
+        <section id="results" class="results" aria-live="polite"></section>
     </main>
 
-    <footer>
+    <footer class="footer">
         <ul>
             <li>
                 <a href="#">Linkedin</a>
