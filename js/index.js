@@ -3,7 +3,8 @@ const initialValue = document.getElementById('initial-value');
 const contribution = document.getElementById('contribution');
 const rate = document.getElementById('rate');
 const time = document.getElementById('time');
-
+const themeSun = document.getElementById('theme-sun');
+const themeMoon = document.getElementById('theme-moon')
 const btnCalculate = document.getElementById('btn-calculate');
 
 const resultsSection = document.getElementById('results')
@@ -26,4 +27,14 @@ investimentForm.addEventListener('submit', (event) => {
         currency: 'BRL'
     })
     resultsSection.innerHTML = `O valor total é ${totalFormatted}`
+})
+
+themeSun.addEventListener('click', () => {
+    document.documentElement.classList.remove('dark-mode');
+    localStorage.setItem('theme', 'light');
+})
+
+themeMoon.addEventListener('click', () => {
+    document.documentElement.classList.add('dark-mode');
+    localStorage.setItem('theme', 'dark');
 })
