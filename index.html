@@ -55,19 +55,23 @@
         <form class="form" id="investiment-form">
             <div class="form-group value-initital">
                 <label for="initial-value">Valor incial:</label>
-                <input type="number" name="initial-value" id="initial-value" step="0.01" inputmode="decimal" required>
+                <input type="number" name="initial-value" id="initial-value" step="0.01" inputmode="decimal">
             </div>
             <div class=" form-group contribution">
                 <label for="contribution">Aporte:</label>
-                <input type="number" name="contribution" id="contribution" step="0.01" inputmode="decimal" required>
+                <input type="number" name="contribution" id="contribution" step="0.01" inputmode="decimal">
             </div>
             <div class="form-group rate">
                 <label for="rate">Taxa:</label>
-                <input type="number" name="rate" id="rate" step="0.01" inputmode="decimal" required>
+                <input type="number" name="rate" id="rate" step="0.01" inputmode="decimal">
             </div>
             <div class="form-group time">
                 <label for="time">Tempo:</label>
-                <input type="number" name="time" id="time" inputmode="decimal" required>
+                <input type="number" name="time" id="time" inputmode="decimal">
+            </div>
+
+            <div class="msg-error" id="msg-error">
+                <p>Digite valores válidos para todos os campos.</p>
             </div>
 
             <button type="submit" id="btn-calculate" class="btn-calculate">Calcular</button>
