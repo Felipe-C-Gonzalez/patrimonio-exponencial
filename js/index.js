@@ -1,3 +1,5 @@
+import renderChart from './graphics.js';
+
 const investimentForm = document.getElementById('investiment-form');
 const initialValue = document.getElementById('initial-value');
 const contribution = document.getElementById('contribution');
@@ -34,9 +36,18 @@ investimentForm.addEventListener('submit', (event) => {
     }
 
     let totalValue = initialValueNumber;
+    let calculationData = [];
+    let mesCounter = 0;
     for (let i = 1; i <= timeValue; i++) {
         totalValue = (totalValue + contributionValue) * (1 + rateValue);
+        mesCounter++;
+        if (mesCounter === 12 || i === timeValue) {
+            calculationData.push({ year: i / 12, value: totalValue })
+        }
+        mesCounter = mesCounter === 12 ? 0 : mesCounter;
     }
+
+    renderChart(calculationData, 'chart-container');
 
     const totalFormatted = moneyFormatter.format(totalValue);
     resultsSection.innerHTML = `O valor total é ${totalFormatted}`

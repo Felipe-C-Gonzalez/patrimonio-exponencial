@@ -23,6 +23,7 @@
         }
     </script>
     <script src="./js/index.js" defer></script>
+    <script src="./js/graphics.js" defer></script>
 </head>
 
 <body>
@@ -76,7 +77,11 @@
 
             <button type="submit" id="btn-calculate" class="btn-calculate">Calcular</button>
         </form>
-        <section id="results" class="results" aria-live="polite"></section>
+        <section id="results" class="results" aria-live="polite">
+            <div class="chart-wrapper">
+                <canvas id="chart-container"></canvas>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
