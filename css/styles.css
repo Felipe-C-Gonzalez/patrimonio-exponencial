@@ -6,7 +6,7 @@
 }
 
 body {
-    min-height: 100vh;
+    min-height: 100dvh;
     font-family: Inter, sans-serif;
     display: flex;
     flex-direction: column;
@@ -165,15 +165,26 @@ nav ul li a:hover,
 }
 
 .msg-error {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
     text-align: center;
-    flex-wrap: wrap;
-    background-color: rgba(255, 0, 0, 0.4);
+    background-color: rgba(217, 48, 37, 0.2);
     color: var(--text);
     padding: 0.75rem;
     width: 100%;
     border-radius: 6px;
     font-weight: bold;
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: visibility 0s, opacity 0.3s linear;
+    margin-top: 1rem;
+}
+
+.msg-error.is-visible {
+    visibility: visible;
+    opacity: 1;
 }
 
 @media(max-width: 768px) {

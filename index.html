@@ -22,8 +22,9 @@
             document.documentElement.classList.add('dark-mode');
         }
     </script>
-    <script src="./js/index.js" defer></script>
-    <script src="./js/graphics.js" defer></script>
+    <script type="module" src="./js/services.js" defer></script>
+    <script type="module" src="./js/index.js" defer></script>
+    <script type="module" src="./js/graphics.js" defer></script>
 </head>
 
 <body>
@@ -63,11 +64,11 @@
                 <input type="number" name="contribution" id="contribution" step="0.01" inputmode="decimal">
             </div>
             <div class="form-group rate">
-                <label for="rate">Taxa:</label>
-                <input type="number" name="rate" id="rate" step="0.01" inputmode="decimal">
+                <label for="rate">Taxa de juros (% ao ano):</label>
+                <input type="text" name="rate" id="rate" step="0.01" inputmode="decimal" placeholder="Carregando...">
             </div>
             <div class="form-group time">
-                <label for="time">Tempo:</label>
+                <label for="time">Período de investimento (meses):</label>
                 <input type="number" name="time" id="time" inputmode="decimal">
             </div>
 
@@ -78,6 +79,7 @@
             <button type="submit" id="btn-calculate" class="btn-calculate">Calcular</button>
         </form>
         <section id="results" class="results" aria-live="polite">
+            <div id="results-text"></div>
             <div class="chart-wrapper">
                 <canvas id="chart-container"></canvas>
             </div>
