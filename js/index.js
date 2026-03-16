@@ -10,7 +10,8 @@ const themeSun = document.getElementById('theme-sun');
 const themeMoon = document.getElementById('theme-moon')
 const btnCalculate = document.getElementById('btn-calculate');
 const msgError = document.getElementById('msg-error');
-const resultsSection = document.getElementById('results-text')
+const resultsSection = document.getElementById('results')
+const resultsTextContainer = document.getElementById('results-text')
 
 const moneyFormatter = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
@@ -20,7 +21,10 @@ const moneyFormatter = new Intl.NumberFormat('pt-BR', {
 async function setup() {
     const selicRate = await getSelic();
     rate.value = selicRate + '%';
-    rate.readOnly = true;
+    const rateTooltip = document.querySelector('.rate .tooltip-icon')
+    if (rateTooltip) {
+        rateTooltip.setAttribute('data-tooltip', `Taxa SELIC atualizada via Banco Central: ${selicRate}% ao ano.`)
+    }
 }
 setup()
 
@@ -57,11 +61,20 @@ function displayResults(results) {
     const totalInvested = moneyFormatter.format(results.totalInvested)
     const profit = moneyFormatter.format(results.totalValue - results.totalInvested)
 
-    resultsSection.innerHTML = `
-        O valor total é: ${totalFormatted}
-        O valor investido é: ${totalInvested}
-        Total de juros é: ${profit}
-    `
+    resultsTextContainer.innerHTML = `
+        <div class="result-card">
+            <span>Total Acumulador</span>
+            <strong class="highlight-primary">${totalFormatted}</strong>
+        </div>
+        <div class="result-card">
+            <span>Total Investido</span>
+            <strong>${totalInvested}</strong>
+        </div>
+        <div class="result-card">
+            <span>Total em Juros</span>
+            <strong class="highlight-secondary">${profit}</strong>
+        </div>
+    `;
     renderChart(results.calculationData, "chart-container");
 }
 
@@ -76,28 +89,43 @@ investimentForm.addEventListener('submit', (event) => {
     btnCalculate.innerText = 'Calculando...';
 
     if (!isFormValid(initialValueNumber, contributionValue, rateValue, timeValue)) {
-        msgError.classList.add('is-visible');
-        resultsSection.innerHTML = '';
+        msgError.classList.add('show');
+        resultsSection.style.display = 'none'
+
         btnCalculate.disabled = false;
         btnCalculate.innerText = 'Calcular';
         return;
     } else {
-        msgError.classList.remove('is-visible');
+        msgError.classList.remove('show');
+        resultsSection.style.display = 'block'
     }
     setTimeout(() => {
         const totalResults = calculateInvestment(initialValueNumber, contributionValue, rateValue, timeValue);
+        resultsSection.classList.add('is-visible')
         displayResults(totalResults);
         btnCalculate.disabled = false;
         btnCalculate.innerText = 'Calcular';
     }, 1000);
 })
 
+function updateActiveButton(theme) {
+    if (theme === 'dark') {
+        themeMoon.classList.add('active');
+        themeSun.classList.remove('active');
+    } else {
+        themeSun.classList.add('active');
+        themeMoon.classList.remove('active')
+    }
+}
+
 themeSun.addEventListener('click', () => {
     document.documentElement.classList.remove('dark-mode');
     localStorage.setItem('theme', 'light');
+    updateActiveButton('light')
 })
 
 themeMoon.addEventListener('click', () => {
     document.documentElement.classList.add('dark-mode');
     localStorage.setItem('theme', 'dark');
+    updateActiveButton('dark')
 })

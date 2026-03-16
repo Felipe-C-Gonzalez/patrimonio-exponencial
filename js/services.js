@@ -7,6 +7,7 @@ async function getSelic() {
         return Number(data[0].valor);
     } catch (error) {
         console.error("Error fetching SELIC rate " + error);
+        return 10.75;
     }
 }
 
