@@ -18,6 +18,7 @@ const moneyFormatter = new Intl.NumberFormat('pt-BR', {
     currency: 'BRL'
 })
 
+
 async function setup() {
     const selicRate = await getSelic();
     rate.value = selicRate + '%';
@@ -107,6 +108,44 @@ investimentForm.addEventListener('submit', (event) => {
         btnCalculate.innerText = 'Calcular';
     }, 1000);
 })
+
+const setupNavigation = () => {
+    const navHome = document.getElementById('nav-home');
+    const aboutlink = document.querySelector('a[href="#about"]');
+    const header = document.querySelector('.header');
+
+    if (navHome) {
+        navHome.addEventListener('click', (e) => {
+            e.preventDefault()
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            })
+        })
+    }
+
+    if (aboutlink) {
+        aboutlink.addEventListener('click', (e) => {
+            e.preventDefault()
+            const aboutSection = document.getElementById('about');
+            if (aboutSection) {
+                aboutSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                })
+            }
+        });
+    }
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled')
+        }
+    })
+}
+setupNavigation()
 
 function updateActiveButton(theme) {
     if (theme === 'dark') {

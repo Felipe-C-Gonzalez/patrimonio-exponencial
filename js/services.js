@@ -3,8 +3,15 @@ const URL = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/1?f
 async function getSelic() {
     try {
         const response = await fetch(URL);
+        if (response.ok) {
+            throw new Error(`Erro na requisição: ${response.status}`);
+        }
         const data = await response.json();
-        return Number(data[0].valor);
+        if (data && data.length > 0 && data[0].valor) {
+            return Number(data[0].valor);
+        } else {
+            throw new Error('Formato de dados inválido da API');
+        }
     } catch (error) {
         console.error("Error fetching SELIC rate " + error);
         return 10.75;

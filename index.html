@@ -35,10 +35,10 @@
                 <nav class="navigation-links">
                     <ul>
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="#top" id="nav-home">Início</a>
                         </li>
                         <li>
-                            <a href="/">Sobre</a>
+                            <a href="#about">Sobre</a>
                         </li>
                     </ul>
                 </nav>
@@ -67,7 +67,7 @@
                     <span class="tooltip-icon"
                         data-tooltip="Quanto você planeja guardar e investir todos os meses.">?</span>
                 </label>
-                <input type="number" name="contribution" id="contribution" step="0.01" inputmode="decimal">
+                <input type="number" name="contribution" id="contribution" step="0.01" inputmode="decimal" placeholder="0,00">
             </div>
             <div class="form-group rate">
                 <label for="rate">
@@ -98,16 +98,67 @@
                 <canvas id="chart-container"></canvas>
             </div>
         </section>
+
+        <section id="about" class="about-container">
+            <div class="card about-project">
+                <h2 class="section-title">Por que desenvolvi este simulador</h2>
+                <div class="about-content">
+                    <p>Este simulador nasceu do desejo de colocar em prática meus estudos de programação. Eu precisava
+                        de um projeto real que unisse lógica de cálculo e visualização de dados, e a matemática dos
+                        juros compostos foi o cenário perfeito para isso.</p>
+                    <p>Como estou no início da minha jornada como desenvolvedor, meu foco foi entender como manipular
+                        elementos na tela (DOM) e como transformar números em gráficos que realmente façam sentido para
+                        o usuário, saindo das planilhas de texto estáticas.</p>
+                </div>
+
+                <div class="tech-stack">
+                    <h3>O que usei no projeto:</h3>
+                    <ul class="tech-list">
+                        <li>
+                            <strong>JavaScript puro (Vanilla JS & ES6):</strong> Lógica para os cálculos financeiros e
+                            controle dos inputs.
+                        </li>
+                        <li>
+                            <strong>API do Banco Central:</strong> Uso da Fetch API para buscar o valor atual da Selic
+                            direto do Banco Central.
+                        </li>
+                        <li>
+                            <strong>Chart.js:</strong> Biblioteca usada para renderizar o gráfico e facilitar a leitura
+                            dos resultados.
+                        </li>
+                        <li>
+                            <strong>CSS Grid & Flexbox:</strong> Estruturação do layout para que o site funcione bem no
+                            computador e no celular.
+                        </li>
+                    </ul>
+                </div>
+                <div class="dev-note">
+                    <p><strong>Desafio Técnico:</strong> O maior desafio técnico foi integrar o
+                        <strong>Chart.js</strong> de forma nativa. Por não utilizar um compilador como o Vite, tive que
+                        lidar com a importação direta via URL e garantir a compatibilidade dos módulos. Além disso,
+                        refatorei o código para eliminar funções duplicadas e reconstruí o layout do zero após
+                        identificar problemas estruturais no comportamento dos cards, resultando em um código muito mais
+                        limpo e estável.
+                    </p>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
         <div class="container">
             <ul>
                 <li>
-                    <a href="#">Linkedin</a>
+                    <a href="https://linkedin.com/in/felipecgonzalez" target="_blank">
+                        <i class="fa-brands fa-linkedin"></i>
+                        Linkedin
+                    </a>
                 </li>
                 <li>
-                    <a href="#">Github</a>
+                    <a href="https://github.com/Felipe-C-Gonzalez" target="_blank">
+                        <i class="fa-brands fa-github"></i>
+                        Github
+                    </a>
                 </li>
             </ul>
         </div>
