@@ -1,9 +1,16 @@
 const URL = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/1?formato=json";
 
-async function getSelic() {
+
+export const INVESTIMENT_LIMITS = {
+    MAX_INITIAL_VALUE: 1000000000,
+    MAX_MONTHLY_DEPOSIT: 1000000000,
+    MAX_PERIOD_MONTHS: 600,
+}
+
+export async function getSelic() {
     try {
         const response = await fetch(URL);
-        if (response.ok) {
+        if (!response.ok) {
             throw new Error(`Erro na requisição: ${response.status}`);
         }
         const data = await response.json();
@@ -18,4 +25,3 @@ async function getSelic() {
     }
 }
 
-export default getSelic;

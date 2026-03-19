@@ -74,8 +74,9 @@ function renderChart(data, containerId) {
                     mode: 'index',
                     intersect: false,
                     callbacks: {
-                        label: (contex) => {
-                            return `${contex.dataset.label}: ${moneyFormatter.format(useContext.raw)}`
+                        label: (context) => {
+                            const value = context.raw;
+                            return `${context.dataset.label}: ${moneyFormatter.format(value)}`
                         }
                     }
                 }

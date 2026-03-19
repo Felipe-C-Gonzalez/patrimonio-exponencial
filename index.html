@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="data:,">
 
     <script>
         if (localStorage.getItem('theme') === 'dark') {
@@ -67,14 +68,15 @@
                     <span class="tooltip-icon"
                         data-tooltip="Quanto você planeja guardar e investir todos os meses.">?</span>
                 </label>
-                <input type="number" name="contribution" id="contribution" step="0.01" inputmode="decimal" placeholder="0,00">
+                <input type="number" name="contribution" id="contribution" step="0.01" inputmode="decimal"
+                    placeholder="0,00">
             </div>
             <div class="form-group rate">
                 <label for="rate">
                     Taxa de juros:
                     <span class="tooltip-icon" data-tooltip="...">?</span>
                 </label>
-                <input type="text" name="rate" id="rate" inputmode="decimal">
+                <input type="text" name="rate" id="rate" inputmode="decimal" readonly class="input-readonly">
                 <small class="input-info">Baseada na Taxa Selic atual (BCB)</small>
             </div>
             <div class="form-group time">
@@ -89,8 +91,10 @@
             <div class="msg-error" id="msg-error">
                 <p>Digite valores válidos para todos os campos.</p>
             </div>
-
-            <button type="submit" id="btn-calculate" class="btn-calculate">Calcular</button>
+            <div class="actions">
+                <button type="submit" id="btn-calculate" class="btn-calculate">Calcular</button>
+                <button type="reset" class="btn-clear" id="btn-clear">Limpar Tudo</button>
+            </div>
         </form>
         <section id="results" class="results" aria-live="polite">
             <div id="results-text" class="results-text"></div>

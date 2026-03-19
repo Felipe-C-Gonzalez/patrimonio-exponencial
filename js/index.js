@@ -1,5 +1,5 @@
 import renderChart from './graphics.js';
-import getSelic from './services.js';
+import { getSelic, INVESTIMENT_LIMITS } from './services.js';
 
 const investimentForm = document.getElementById('investiment-form');
 const initialValue = document.getElementById('initial-value');
@@ -9,6 +9,7 @@ const time = document.getElementById('time');
 const themeSun = document.getElementById('theme-sun');
 const themeMoon = document.getElementById('theme-moon')
 const btnCalculate = document.getElementById('btn-calculate');
+const btnClear = document.getElementById('btn-clear');
 const msgError = document.getElementById('msg-error');
 const resultsSection = document.getElementById('results')
 const resultsTextContainer = document.getElementById('results-text')
@@ -18,6 +19,17 @@ const moneyFormatter = new Intl.NumberFormat('pt-BR', {
     currency: 'BRL'
 })
 
+let globalRate = '10.75';
+
+async function loadApiData() {
+    const rateFromApi = await getSelic();
+    globalRate = rateFromApi.toString();
+
+    if (rate) {
+        rate.value = `${globalRate}%`
+    }
+}
+loadApiData();
 
 async function setup() {
     const selicRate = await getSelic();
@@ -49,12 +61,32 @@ function calculateInvestment(initial, monthly, yearlyRate, months) {
 }
 
 function isFormValid(initial, monthly, rate, time) {
-    let isValid = isNaN(initial) || isNaN(monthly) || isNaN(rate) || isNaN(time) || initial <= 0 || monthly <= 0 || rate <= 0 || time <= 0;
-    if (isValid) {
-        return false;
-    } else {
-        return true;
-    };
+    let isBasicInvalid = isNaN(initial) || isNaN(monthly) || isNaN(rate) || isNaN(time) || initial <= 0 || monthly <= 0 || rate <= 0 || time <= 0;
+    if (isBasicInvalid) {
+        return {
+            valid: false,
+            message: 'Por favor, preencha todos os campos com valores maiores que zero.'
+        };
+    }
+    if (initial > INVESTIMENT_LIMITS.MAX_INITIAL_VALUE) {
+        return {
+            valid: false,
+            message: "O valor inicial não pode passar de 1 Bilhão."
+        }
+    }
+    if (monthly > INVESTIMENT_LIMITS.MAX_MONTHLY_DEPOSIT) {
+        return {
+            valid: false,
+            message: "O aporte mensal ultrapassa o limite permitido."
+        }
+    }
+    if (time > INVESTIMENT_LIMITS.MAX_PERIOD_MONTHS) {
+        return {
+            valid: false,
+            message: "O período máximo permitido é de 50 anos (600 meses)."
+        }
+    }
+    return { valid: true }
 };
 
 function displayResults(results) {
@@ -83,31 +115,45 @@ investimentForm.addEventListener('submit', (event) => {
     event.preventDefault()
     const initialValueNumber = Number(initialValue.value);
     const contributionValue = Number(contribution.value);
-    let rateValue = Number(rate.value.replace('%', ''));
+    let rateValue = Number(rate.value.replace('%', '').replace(',', '.'));
     const timeValue = Number(time.value);
 
     btnCalculate.disabled = true;
     btnCalculate.innerText = 'Calculando...';
 
-    if (!isFormValid(initialValueNumber, contributionValue, rateValue, timeValue)) {
+    const validation = isFormValid(initialValueNumber, contributionValue, rateValue, timeValue);
+
+    if (!validation.valid) {
+        msgError.innerText = validation.message;
         msgError.classList.add('show');
-        resultsSection.style.display = 'none'
+        resultsSection.classList.remove('is-visible')
 
         btnCalculate.disabled = false;
         btnCalculate.innerText = 'Calcular';
         return;
     } else {
         msgError.classList.remove('show');
-        resultsSection.style.display = 'block'
     }
     setTimeout(() => {
         const totalResults = calculateInvestment(initialValueNumber, contributionValue, rateValue, timeValue);
-        resultsSection.classList.add('is-visible')
         displayResults(totalResults);
+        resultsSection.classList.add('is-visible')
+
         btnCalculate.disabled = false;
         btnCalculate.innerText = 'Calcular';
     }, 1000);
 })
+
+btnClear.addEventListener('click', () => {
+    resultsSection.classList.remove('is-visible');
+    msgError.classList.remove('show')
+
+    setTimeout(() => {
+        if (rate) {
+            rate.value = `${globalRate}%`
+        }
+    }, 0)
+});
 
 const setupNavigation = () => {
     const navHome = document.getElementById('nav-home');
